@@ -1,9 +1,26 @@
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+import Homepage from "./components/Homepage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Homepage />,
+    },
+    {
+      path: "/register",
+      element: <SignUp />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+  ]);
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline bg-blue-500">Hello world!</h1>
-      <button class="btn w-64 rounded-full bg-green-600">Button</button>
+    <div className="p-4 h-screen flex items-center justify-center">
+      <RouterProvider router={router} />
     </div>
   );
 }
