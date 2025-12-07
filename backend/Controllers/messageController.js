@@ -26,9 +26,7 @@ export const senderMessage = async (req, res) => {
     if (newMessage) {
       gotconversation.message.push(newMessage._id);
       await gotconversation.save();
-      return res
-        .status(200)
-        .json({ message: "message sent successfully", success: true });
+      return res.status(200).json({ message: newMessage, success: true });
     }
     // await Promise.all([gotconversation.save(), newMessage.save()]);
   } catch (err) {
@@ -47,13 +45,11 @@ export const getMessages = async (req, res) => {
       members: { $all: [senderId, receiverId] },
     }).populate("message");
     // console.log("conversation", conversation);
-    return res
-      .status(200)
-      .json({
-        message: "messages retrieved successfully",
-        success: true,
-        data: conversation,
-      });
+    return res.status(200).json({
+      message: "messages retrieved successfully",
+      success: true,
+      data: conversation,
+    });
   } catch (error) {
     console.log(error);
     return res

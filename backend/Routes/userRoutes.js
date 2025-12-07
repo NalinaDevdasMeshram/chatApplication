@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import isAuthentication from "../Middleware/isAuthentication.js";
+import isAuthenticated from "../Middleware/isAuthentication.js";
 import {
   registerUser,
   login,
@@ -11,6 +11,6 @@ import {
 router.post("/register", registerUser);
 router.post("/login", login);
 router.get("/logout", Logout);
-router.get("/", isAuthentication, getOtherUser);
+router.get("/", isAuthenticated, getOtherUser);
 
 export default router;

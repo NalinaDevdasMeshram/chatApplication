@@ -81,17 +81,25 @@ export const login = async (req, res) => {
     };
 
     const token = await jwt.sign(tokenData, process.env.jwt_secret_key, {
-      expiresIn: "7d",
+      expiresIn: "10d",
     });
-    return res.status(200).cookie("token", token, { httpOnly: true }).json({
-      message: "User logged in successfully",
-      _id: user._id,
-      fullname: user.fullname,
-      username: user.username,
-      profilePhoto: user.profilePhoto,
-      success: true,
-      token,
-    });
+    return res
+      .status(200)
+      .cookie("token", token, {
+        maxAge: 1 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+      })
+      .json({
+        message: "User logged in successfully",
+        _id: user._id,
+        fullname: user.fullname,
+        username: user.username,
+        profilePhoto: user.profilePhoto,
+        success: true,
+        token,
+      });
   } catch (err) {
     console.log(err);
     return res
@@ -116,12 +124,12 @@ export const Logout = async (req, res) => {
 export const getOtherUser = async (req, res) => {
   try {
     const isUserLoggedIn = req.id;
-    const otherUser = await User.find({
+    const otherUsers = await User.find({
       _id: { $ne: isUserLoggedIn },
     }).select("-password -confirmPassword");
     return res.status(200).json({
       message: "user profile fetched successfully",
-      otherUser,
+      otherUsers,
       success: true,
     });
   } catch (err) {

@@ -4,8 +4,7 @@ import {
   senderMessage,
   getMessages,
 } from "../Controllers/messageController.js";
-import isAuthentication from "../middleware/isAuthentication.js";
-
-router.post("/send/:id", isAuthentication, senderMessage);
-router.get("/:id", isAuthentication, getMessages);
+import isAuthenticated from "../Middleware/isAuthentication.js";
+router.post("/send/:id", isAuthenticated, senderMessage);
+router.get("/:id", isAuthenticated, getMessages);
 export default router;

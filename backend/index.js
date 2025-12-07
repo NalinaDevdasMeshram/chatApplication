@@ -5,12 +5,19 @@ import userRoutes from "./Routes/userRoutes.js";
 import messageRoutes from "./Routes/messageRoute.js";
 import connectdb from "./config/database.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 dotenv.config();
 
-app.use(cookieParser());
-
+const corsOptions = {
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 //middleware to parse json data
 app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 //user routes
 app.use("/api/v1/user", userRoutes);
