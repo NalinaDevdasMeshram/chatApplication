@@ -5,6 +5,7 @@ import { setMessage } from "../Redux/MessageSlice";
 
 const useGetMessages = () => {
   const { selectedUser } = useSelector((store) => store.user);
+  console.log("selectedUser", selectedUser);
   const dispatch = useDispatch();
 
   useEffect(() => {

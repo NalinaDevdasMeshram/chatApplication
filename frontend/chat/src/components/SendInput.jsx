@@ -16,7 +16,7 @@ const SendInput = () => {
         `http://localhost:8080/api/v1/message/send/${selectedUser?._id}`,
         { message }
       );
-      dispatch(setMessage([...messages, res?.data?.message?.message]));
+      dispatch(setMessage([res?.data?.message]));
     } catch (error) {
       console.log(error);
     }
